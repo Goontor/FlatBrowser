@@ -1,15 +1,20 @@
 ﻿(function()
-    {
+{
+    var flatHub = $.connection.flatHub
     $.connection.hub.start()
         .done(function () {
-            console.log("Working!")
-            $.connection.flatHub.server.announce("Connected");
+            writeToPage("#welcome-messages", "Working!");
+            flatHub.server.announce("Connected");
         })
-        .fail(function () { alert("Not Working!") });
+        .fail(function () { writeToPage("#welcome-messages", "Not working"); });
 
-    $.connection.flatHub.client.announce = function (message) {
+    flatHub.client.announce = function (message) {
         console.log("trigger");
-        $("#welcome-messages").append(message + "</br>");
+        writeToPage("#welcome-messages",message)
         console.log("end");
+    }
+
+    var writeToPage = function (selector,message) {
+        $(selector).append(message + "</br>");
     }
 })()
