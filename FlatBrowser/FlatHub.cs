@@ -12,5 +12,9 @@ namespace FlatBrowser
         {
             Clients.All.Announce(message);
         }
+        public DateTime GetServerDateTime()
+        {
+            return DateTime.Now;
+        }
     }
 }
